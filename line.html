@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <title>CanvasXpress LLM Questions</title>
+  <!-- CanvasXpress -->
+  <link rel="stylesheet" href="https://canvasxpress.org/dist/canvasXpress.css" type="text/css" />
+  <script type="text/javascript" src="https://canvasxpress.org/dist/canvasXpress.min.js"></script>
+
+  <style>
+    div.content {
+      top: 25px;
+      left: 25px;
+      position: absolute;
+    }
+
+    div.container {
+      border: 1px solid #d3d3d3;
+      position: relative;
+      height: 100%;
+      border-radius: 4px;
+      background: white;
+      float: left;
+      margin: 5px;
+      max-width: 810px;
+    }
+
+    div.title {
+      position: relative;
+      height: 40px;
+      max-width: 500px;
+      line-height: 40px;
+      align-items: center;
+      border-radius: 4px;
+      font-size: 22px;
+      flex-grow: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-align: center !important;
+      font-weight: bold;
+      background: #f5f5f5;
+    }
+
+    div.plot {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      margin: 5px 5px 5px 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+  </div>
+  <script>
+    var json = {
+      "mpg": [
+        ["Id", "class", "cty", "cyl", "drv", "fl", "manufacturer", "model", "trans", "year", "displ", "hwy"],
+        [1, "compact", 18, 4, "f", "p", "audi", "a4", "auto(l5)", 1999, 1.8, 29],
+        [2, "compact", 21, 4, "f", "p", "audi", "a4", "manual(m5)", 1999, 1.8, 29],
+        [3, "compact", 20, 4, "f", "p", "audi", "a4", "manual(m6)", 2008, 2, 31],
+        [4, "compact", 21, 4, "f", "p", "audi", "a4", "auto(av)", 2008, 2, 30],
+        [5, "compact", 16, 6, "f", "p", "audi", "a4", "auto(l5)", 1999, 2.8, 26],
+        [6, "compact", 18, 6, "f", "p", "audi", "a4", "manual(m5)", 1999, 2.8, 26],
+        [7, "compact", 18, 6, "f", "p", "audi", "a4", "auto(av)", 2008, 3.1, 27],
+        [8, "compact", 18, 4, "4", "p", "audi", "a4 quattro", "manual(m5)", 1999, 1.8, 26],
+        [9, "compact", 16, 4, "4", "p", "audi", "a4 quattro", "auto(l5)", 1999, 1.8, 25],
+        [10, "compact", 20, 4, "4", "p", "audi", "a4 quattro", "manual(m6)", 2008, 2, 28],
+        [11, "compact", 19, 4, "4", "p", "audi", "a4 quattro", "auto(s6)", 2008, 2, 27],
+        [12, "compact", 15, 6, "4", "p", "audi", "a4 quattro", "auto(l5)", 1999, 2.8, 25],
+        [13, "compact", 17, 6, "4", "p", "audi", "a4 quattro", "manual(m5)", 1999, 2.8, 25],
+        [14, "compact", 17, 6, "4", "p", "audi", "a4 quattro", "auto(s6)", 2008, 3.1, 25],
+        [15, "compact", 15, 6, "4", "p", "audi", "a4 quattro", "manual(m6)", 2008, 3.1, 25],
+        [16, "midsize", 15, 6, "4", "p", "audi", "a6 quattro", "auto(l5)", 1999, 2.8, 24],
+        [17, "midsize", 17, 6, "4", "p", "audi", "a6 quattro", "auto(s6)", 2008, 3.1, 25],
+        [18, "midsize", 16, 8, "4", "p", "audi", "a6 quattro", "auto(s6)", 2008, 4.2, 23],
+        [19, "suv", 14, 8, "r", "r", "chevrolet", "c1500 suburban 2wd", "auto(l4)", 2008, 5.3, 20],
+        [20, "suv", 11, 8, "r", "e", "chevrolet", "c1500 suburban 2wd", "auto(l4)", 2008, 5.3, 15],
+        [21, "suv", 14, 8, "r", "r", "chevrolet", "c1500 suburban 2wd", "auto(l4)", 2008, 5.3, 20],
+        [22, "suv", 13, 8, "r", "r", "chevrolet", "c1500 suburban 2wd", "auto(l4)", 1999, 5.7, 17],
+        [23, "suv", 12, 8, "r", "r", "chevrolet", "c1500 suburban 2wd", "auto(l4)", 2008, 6, 17],
+        [24, "2seater", 16, 8, "r", "p", "chevrolet", "corvette", "manual(m6)", 1999, 5.7, 26],
+        [25, "2seater", 15, 8, "r", "p", "chevrolet", "corvette", "auto(l4)", 1999, 5.7, 23],
+        [26, "2seater", 16, 8, "r", "p", "chevrolet", "corvette", "manual(m6)", 2008, 6.2, 26],
+        [27, "2seater", 15, 8, "r", "p", "chevrolet", "corvette", "auto(s6)", 2008, 6.2, 25],
+        [28, "2seater", 15, 8, "r", "p", "chevrolet", "corvette", "manual(m6)", 2008, 7, 24],
+        [29, "suv", 14, 8, "4", "r", "chevrolet", "k1500 tahoe 4wd", "auto(l4)", 2008, 5.3, 19],
+        [30, "suv", 11, 8, "4", "e", "chevrolet", "k1500 tahoe 4wd", "auto(l4)", 2008, 5.3, 14],
+        [31, "suv", 11, 8, "4", "r", "chevrolet", "k1500 tahoe 4wd", "auto(l4)", 1999, 5.7, 15],
+        [32, "suv", 14, 8, "4", "d", "chevrolet", "k1500 tahoe 4wd", "auto(l4)", 1999, 6.5, 17],
+        [33, "midsize", 19, 4, "f", "r", "chevrolet", "malibu", "auto(l4)", 1999, 2.4, 27],
+        [34, "midsize", 22, 4, "f", "r", "chevrolet", "malibu", "auto(l4)", 2008, 2.4, 30],
+        [35, "midsize", 18, 6, "f", "r", "chevrolet", "malibu", "auto(l4)", 1999, 3.1, 26],
+        [36, "midsize", 18, 6, "f", "r", "chevrolet", "malibu", "auto(l4)", 2008, 3.5, 29],
+        [37, "midsize", 17, 6, "f", "r", "chevrolet", "malibu", "auto(s6)", 2008, 3.6, 26],
+        [38, "minivan", 18, 4, "f", "r", "dodge", "caravan 2wd", "auto(l3)", 1999, 2.4, 24],
+        [39, "minivan", 17, 6, "f", "r", "dodge", "caravan 2wd", "auto(l4)", 1999, 3, 24],
+        [40, "minivan", 16, 6, "f", "r", "dodge", "caravan 2wd", "auto(l4)", 1999, 3.3, 22],
+        [41, "minivan", 16, 6, "f", "r", "dodge", "caravan 2wd", "auto(l4)", 1999, 3.3, 22],
+        [42, "minivan", 17, 6, "f", "r", "dodge", "caravan 2wd", "auto(l4)", 2008, 3.3, 24],
+        [43, "minivan", 17, 6, "f", "r", "dodge", "caravan 2wd", "auto(l4)", 2008, 3.3, 24],
+        [44, "minivan", 11, 6, "f", "e", "dodge", "caravan 2wd", "auto(l4)", 2008, 3.3, 17],
+        [45, "minivan", 15, 6, "f", "r", "dodge", "caravan 2wd", "auto(l4)", 1999, 3.8, 22],
+        [46, "minivan", 15, 6, "f", "r", "dodge", "caravan 2wd", "auto(l4)", 1999, 3.8, 21],
+        [47, "minivan", 16, 6, "f", "r", "dodge", "caravan 2wd", "auto(l6)", 2008, 3.8, 23],
+        [48, "minivan", 16, 6, "f", "r", "dodge", "caravan 2wd", "auto(l6)", 2008, 4, 23],
+        [49, "pickup", 15, 6, "4", "r", "dodge", "dakota pickup 4wd", "manual(m6)", 2008, 3.7, 19],
+        [50, "pickup", 14, 6, "4", "r", "dodge", "dakota pickup 4wd", "auto(l4)", 2008, 3.7, 18],
+        [51, "pickup", 13, 6, "4", "r", "dodge", "dakota pickup 4wd", "auto(l4)", 1999, 3.9, 17],
+        [52, "pickup", 14, 6, "4", "r", "dodge", "dakota pickup 4wd", "manual(m5)", 1999, 3.9, 17],
+        [53, "pickup", 14, 8, "4", "r", "dodge", "dakota pickup 4wd", "auto(l5)", 2008, 4.7, 19],
+        [54, "pickup", 14, 8, "4", "r", "dodge", "dakota pickup 4wd", "auto(l5)", 2008, 4.7, 19],
+        [55, "pickup", 9, 8, "4", "e", "dodge", "dakota pickup 4wd", "auto(l5)", 2008, 4.7, 12],
+        [56, "pickup", 11, 8, "4", "r", "dodge", "dakota pickup 4wd", "manual(m5)", 1999, 5.2, 17],
+        [57, "pickup", 11, 8, "4", "r", "dodge", "dakota pickup 4wd", "auto(l4)", 1999, 5.2, 15],
+        [58, "suv", 13, 6, "4", "r", "dodge", "durango 4wd", "auto(l4)", 1999, 3.9, 17],
+        [59, "suv", 13, 8, "4", "r", "dodge", "durango 4wd", "auto(l5)", 2008, 4.7, 17],
+        [60, "suv", 9, 8, "4", "e", "dodge", "durango 4wd", "auto(l5)", 2008, 4.7, 12],
+        [61, "suv", 13, 8, "4", "r", "dodge", "durango 4wd", "auto(l5)", 2008, 4.7, 17],
+        [62, "suv", 11, 8, "4", "r", "dodge", "durango 4wd", "auto(l4)", 1999, 5.2, 16],
+        [63, "suv", 13, 8, "4", "r", "dodge", "durango 4wd", "auto(l5)", 2008, 5.7, 18],
+        [64, "suv", 11, 8, "4", "r", "dodge", "durango 4wd", "auto(l4)", 1999, 5.9, 15],
+        [65, "pickup", 12, 8, "4", "r", "dodge", "ram 1500 pickup 4wd", "manual(m6)", 2008, 4.7, 16],
+        [66, "pickup", 9, 8, "4", "e", "dodge", "ram 1500 pickup 4wd", "auto(l5)", 2008, 4.7, 12],
+        [67, "pickup", 13, 8, "4", "r", "dodge", "ram 1500 pickup 4wd", "auto(l5)", 2008, 4.7, 17],
+        [68, "pickup", 13, 8, "4", "r", "dodge", "ram 1500 pickup 4wd", "auto(l5)", 2008, 4.7, 17],
+        [69, "pickup", 12, 8, "4", "r", "dodge", "ram 1500 pickup 4wd", "manual(m6)", 2008, 4.7, 16],
+        [70, "pickup", 9, 8, "4", "e", "dodge", "ram 1500 pickup 4wd", "manual(m6)", 2008, 4.7, 12],
+        [71, "pickup", 11, 8, "4", "r", "dodge", "ram 1500 pickup 4wd", "auto(l4)", 1999, 5.2, 15],
+        [72, "pickup", 11, 8, "4", "r", "dodge", "ram 1500 pickup 4wd", "manual(m5)", 1999, 5.2, 16],
+        [73, "pickup", 13, 8, "4", "r", "dodge", "ram 1500 pickup 4wd", "auto(l5)", 2008, 5.7, 17],
+        [74, "pickup", 11, 8, "4", "r", "dodge", "ram 1500 pickup 4wd", "auto(l4)", 1999, 5.9, 15],
+        [75, "suv", 11, 8, "r", "r", "ford", "expedition 2wd", "auto(l4)", 1999, 4.6, 17],
+        [76, "suv", 11, 8, "r", "r", "ford", "expedition 2wd", "auto(l4)", 1999, 5.4, 17],
+        [77, "suv", 12, 8, "r", "r", "ford", "expedition 2wd", "auto(l6)", 2008, 5.4, 18],
+        [78, "suv", 14, 6, "4", "r", "ford", "explorer 4wd", "auto(l5)", 1999, 4, 17],
+        [79, "suv", 15, 6, "4", "r", "ford", "explorer 4wd", "manual(m5)", 1999, 4, 19],
+        [80, "suv", 14, 6, "4", "r", "ford", "explorer 4wd", "auto(l5)", 1999, 4, 17],
+        [81, "suv", 13, 6, "4", "r", "ford", "explorer 4wd", "auto(l5)", 2008, 4, 19],
+        [82, "suv", 13, 8, "4", "r", "ford", "explorer 4wd", "auto(l6)", 2008, 4.6, 19],
+        [83, "suv", 13, 8, "4", "r", "ford", "explorer 4wd", "auto(l4)", 1999, 5, 17],
+        [84, "pickup", 14, 6, "4", "r", "ford", "f150 pickup 4wd", "auto(l4)", 1999, 4.2, 17],
+        [85, "pickup", 14, 6, "4", "r", "ford", "f150 pickup 4wd", "manual(m5)", 1999, 4.2, 17],
+        [86, "pickup", 13, 8, "4", "r", "ford", "f150 pickup 4wd", "manual(m5)", 1999, 4.6, 16],
+        [87, "pickup", 13, 8, "4", "r", "ford", "f150 pickup 4wd", "auto(l4)", 1999, 4.6, 16],
+        [88, "pickup", 13, 8, "4", "r", "ford", "f150 pickup 4wd", "auto(l4)", 2008, 4.6, 17],
+        [89, "pickup", 11, 8, "4", "r", "ford", "f150 pickup 4wd", "auto(l4)", 1999, 5.4, 15],
+        [90, "pickup", 13, 8, "4", "r", "ford", "f150 pickup 4wd", "auto(l4)", 2008, 5.4, 17],
+        [91, "subcompact", 18, 6, "r", "r", "ford", "mustang", "manual(m5)", 1999, 3.8, 26],
+        [92, "subcompact", 18, 6, "r", "r", "ford", "mustang", "auto(l4)", 1999, 3.8, 25],
+        [93, "subcompact", 17, 6, "r", "r", "ford", "mustang", "manual(m5)", 2008, 4, 26],
+        [94, "subcompact", 16, 6, "r", "r", "ford", "mustang", "auto(l5)", 2008, 4, 24],
+        [95, "subcompact", 15, 8, "r", "r", "ford", "mustang", "auto(l4)", 1999, 4.6, 21],
+        [96, "subcompact", 15, 8, "r", "r", "ford", "mustang", "manual(m5)", 1999, 4.6, 22],
+        [97, "subcompact", 15, 8, "r", "r", "ford", "mustang", "manual(m5)", 2008, 4.6, 23],
+        [98, "subcompact", 15, 8, "r", "r", "ford", "mustang", "auto(l5)", 2008, 4.6, 22],
+        [99, "subcompact", 14, 8, "r", "p", "ford", "mustang", "manual(m6)", 2008, 5.4, 20],
+        [100, "subcompact", 28, 4, "f", "r", "honda", "civic", "manual(m5)", 1999, 1.6, 33],
+        [101, "subcompact", 24, 4, "f", "r", "honda", "civic", "auto(l4)", 1999, 1.6, 32],
+        [102, "subcompact", 25, 4, "f", "r", "honda", "civic", "manual(m5)", 1999, 1.6, 32],
+        [103, "subcompact", 23, 4, "f", "p", "honda", "civic", "manual(m5)", 1999, 1.6, 29],
+        [104, "subcompact", 24, 4, "f", "r", "honda", "civic", "auto(l4)", 1999, 1.6, 32],
+        [105, "subcompact", 26, 4, "f", "r", "honda", "civic", "manual(m5)", 2008, 1.8, 34],
+        [106, "subcompact", 25, 4, "f", "r", "honda", "civic", "auto(l5)", 2008, 1.8, 36],
+        [107, "subcompact", 24, 4, "f", "c", "honda", "civic", "auto(l5)", 2008, 1.8, 36],
+        [108, "subcompact", 21, 4, "f", "p", "honda", "civic", "manual(m6)", 2008, 2, 29],
+        [109, "midsize", 18, 4, "f", "r", "hyundai", "sonata", "auto(l4)", 1999, 2.4, 26],
+        [110, "midsize", 18, 4, "f", "r", "hyundai", "sonata", "manual(m5)", 1999, 2.4, 27],
+        [111, "midsize", 21, 4, "f", "r", "hyundai", "sonata", "auto(l4)", 2008, 2.4, 30],
+        [112, "midsize", 21, 4, "f", "r", "hyundai", "sonata", "manual(m5)", 2008, 2.4, 31],
+        [113, "midsize", 18, 6, "f", "r", "hyundai", "sonata", "auto(l4)", 1999, 2.5, 26],
+        [114, "midsize", 18, 6, "f", "r", "hyundai", "sonata", "manual(m5)", 1999, 2.5, 26],
+        [115, "midsize", 19, 6, "f", "r", "hyundai", "sonata", "auto(l5)", 2008, 3.3, 28],
+        [116, "subcompact", 19, 4, "f", "r", "hyundai", "tiburon", "auto(l4)", 1999, 2, 26],
+        [117, "subcompact", 19, 4, "f", "r", "hyundai", "tiburon", "manual(m5)", 1999, 2, 29],
+        [118, "subcompact", 20, 4, "f", "r", "hyundai", "tiburon", "manual(m5)", 2008, 2, 28],
+        [119, "subcompact", 20, 4, "f", "r", "hyundai", "tiburon", "auto(l4)", 2008, 2, 27],
+        [120, "subcompact", 17, 6, "f", "r", "hyundai", "tiburon", "auto(l4)", 2008, 2.7, 24],
+        [121, "subcompact", 16, 6, "f", "r", "hyundai", "tiburon", "manual(m6)", 2008, 2.7, 24],
+        [122, "subcompact", 17, 6, "f", "r", "hyundai", "tiburon", "manual(m5)", 2008, 2.7, 24],
+        [123, "suv", 17, 6, "4", "d", "jeep", "grand cherokee 4wd", "auto(l5)", 2008, 3, 22],
+        [124, "suv", 15, 6, "4", "r", "jeep", "grand cherokee 4wd", "auto(l5)", 2008, 3.7, 19],
+        [125, "suv", 15, 6, "4", "r", "jeep", "grand cherokee 4wd", "auto(l4)", 1999, 4, 20],
+        [126, "suv", 14, 8, "4", "r", "jeep", "grand cherokee 4wd", "auto(l4)", 1999, 4.7, 17],
+        [127, "suv", 9, 8, "4", "e", "jeep", "grand cherokee 4wd", "auto(l5)", 2008, 4.7, 12],
+        [128, "suv", 14, 8, "4", "r", "jeep", "grand cherokee 4wd", "auto(l5)", 2008, 4.7, 19],
+        [129, "suv", 13, 8, "4", "r", "jeep", "grand cherokee 4wd", "auto(l5)", 2008, 5.7, 18],
+        [130, "suv", 11, 8, "4", "p", "jeep", "grand cherokee 4wd", "auto(l5)", 2008, 6.1, 14],
+        [131, "suv", 11, 8, "4", "p", "land rover", "range rover", "auto(l4)", 1999, 4, 15],
+        [132, "suv", 12, 8, "4", "r", "land rover", "range rover", "auto(s6)", 2008, 4.2, 18],
+        [133, "suv", 12, 8, "4", "r", "land rover", "range rover", "auto(s6)", 2008, 4.4, 18],
+        [134, "suv", 11, 8, "4", "p", "land rover", "range rover", "auto(l4)", 1999, 4.6, 15],
+        [135, "suv", 11, 8, "r", "r", "lincoln", "navigator 2wd", "auto(l4)", 1999, 5.4, 17],
+        [136, "suv", 11, 8, "r", "p", "lincoln", "navigator 2wd", "auto(l4)", 1999, 5.4, 16],
+        [137, "suv", 12, 8, "r", "r", "lincoln", "navigator 2wd", "auto(l6)", 2008, 5.4, 18],
+        [138, "suv", 14, 6, "4", "r", "mercury", "mountaineer 4wd", "auto(l5)", 1999, 4, 17],
+        [139, "suv", 13, 6, "4", "r", "mercury", "mountaineer 4wd", "auto(l5)", 2008, 4, 19],
+        [140, "suv", 13, 8, "4", "r", "mercury", "mountaineer 4wd", "auto(l6)", 2008, 4.6, 19],
+        [141, "suv", 13, 8, "4", "r", "mercury", "mountaineer 4wd", "auto(l4)", 1999, 5, 17],
+        [142, "compact", 21, 4, "f", "r", "nissan", "altima", "manual(m5)", 1999, 2.4, 29],
+        [143, "compact", 19, 4, "f", "r", "nissan", "altima", "auto(l4)", 1999, 2.4, 27],
+        [144, "midsize", 23, 4, "f", "r", "nissan", "altima", "auto(av)", 2008, 2.5, 31],
+        [145, "midsize", 23, 4, "f", "r", "nissan", "altima", "manual(m6)", 2008, 2.5, 32],
+        [146, "midsize", 19, 6, "f", "p", "nissan", "altima", "manual(m6)", 2008, 3.5, 27],
+        [147, "midsize", 19, 6, "f", "p", "nissan", "altima", "auto(av)", 2008, 3.5, 26],
+        [148, "midsize", 18, 6, "f", "r", "nissan", "maxima", "auto(l4)", 1999, 3, 26],
+        [149, "midsize", 19, 6, "f", "r", "nissan", "maxima", "manual(m5)", 1999, 3, 25],
+        [150, "midsize", 19, 6, "f", "p", "nissan", "maxima", "auto(av)", 2008, 3.5, 25],
+        [151, "suv", 14, 6, "4", "r", "nissan", "pathfinder 4wd", "auto(l4)", 1999, 3.3, 17],
+        [152, "suv", 15, 6, "4", "r", "nissan", "pathfinder 4wd", "manual(m5)", 1999, 3.3, 17],
+        [153, "suv", 14, 6, "4", "p", "nissan", "pathfinder 4wd", "auto(l5)", 2008, 4, 20],
+        [154, "suv", 12, 8, "4", "p", "nissan", "pathfinder 4wd", "auto(s5)", 2008, 5.6, 18],
+        [155, "midsize", 18, 6, "f", "r", "pontiac", "grand prix", "auto(l4)", 1999, 3.1, 26],
+        [156, "midsize", 16, 6, "f", "p", "pontiac", "grand prix", "auto(l4)", 1999, 3.8, 26],
+        [157, "midsize", 17, 6, "f", "r", "pontiac", "grand prix", "auto(l4)", 1999, 3.8, 27],
+        [158, "midsize", 18, 6, "f", "r", "pontiac", "grand prix", "auto(l4)", 2008, 3.8, 28],
+        [159, "midsize", 16, 8, "f", "p", "pontiac", "grand prix", "auto(s4)", 2008, 5.3, 25],
+        [160, "suv", 18, 4, "4", "r", "subaru", "forester awd", "manual(m5)", 1999, 2.5, 25],
+        [161, "suv", 18, 4, "4", "r", "subaru", "forester awd", "auto(l4)", 1999, 2.5, 24],
+        [162, "suv", 20, 4, "4", "r", "subaru", "forester awd", "manual(m5)", 2008, 2.5, 27],
+        [163, "suv", 19, 4, "4", "p", "subaru", "forester awd", "manual(m5)", 2008, 2.5, 25],
+        [164, "suv", 20, 4, "4", "r", "subaru", "forester awd", "auto(l4)", 2008, 2.5, 26],
+        [165, "suv", 18, 4, "4", "p", "subaru", "forester awd", "auto(l4)", 2008, 2.5, 23],
+        [166, "subcompact", 21, 4, "4", "r", "subaru", "impreza awd", "auto(l4)", 1999, 2.2, 26],
+        [167, "subcompact", 19, 4, "4", "r", "subaru", "impreza awd", "manual(m5)", 1999, 2.2, 26],
+        [168, "subcompact", 19, 4, "4", "r", "subaru", "impreza awd", "manual(m5)", 1999, 2.5, 26],
+        [169, "subcompact", 19, 4, "4", "r", "subaru", "impreza awd", "auto(l4)", 1999, 2.5, 26],
+        [170, "compact", 20, 4, "4", "p", "subaru", "impreza awd", "auto(s4)", 2008, 2.5, 25],
+        [171, "compact", 20, 4, "4", "r", "subaru", "impreza awd", "auto(s4)", 2008, 2.5, 27],
+        [172, "compact", 19, 4, "4", "p", "subaru", "impreza awd", "manual(m5)", 2008, 2.5, 25],
+        [173, "compact", 20, 4, "4", "r", "subaru", "impreza awd", "manual(m5)", 2008, 2.5, 27],
+        [174, "suv", 15, 4, "4", "r", "toyota", "4runner 4wd", "manual(m5)", 1999, 2.7, 20],
+        [175, "suv", 16, 4, "4", "r", "toyota", "4runner 4wd", "auto(l4)", 1999, 2.7, 20],
+        [176, "suv", 15, 6, "4", "r", "toyota", "4runner 4wd", "auto(l4)", 1999, 3.4, 19],
+        [177, "suv", 15, 6, "4", "r", "toyota", "4runner 4wd", "manual(m5)", 1999, 3.4, 17],
+        [178, "suv", 16, 6, "4", "r", "toyota", "4runner 4wd", "auto(l5)", 2008, 4, 20],
+        [179, "suv", 14, 8, "4", "r", "toyota", "4runner 4wd", "auto(l5)", 2008, 4.7, 17],
+        [180, "midsize", 21, 4, "f", "r", "toyota", "camry", "manual(m5)", 1999, 2.2, 29],
+        [181, "midsize", 21, 4, "f", "r", "toyota", "camry", "auto(l4)", 1999, 2.2, 27],
+        [182, "midsize", 21, 4, "f", "r", "toyota", "camry", "manual(m5)", 2008, 2.4, 31],
+        [183, "midsize", 21, 4, "f", "r", "toyota", "camry", "auto(l5)", 2008, 2.4, 31],
+        [184, "midsize", 18, 6, "f", "r", "toyota", "camry", "auto(l4)", 1999, 3, 26],
+        [185, "midsize", 18, 6, "f", "r", "toyota", "camry", "manual(m5)", 1999, 3, 26],
+        [186, "midsize", 19, 6, "f", "r", "toyota", "camry", "auto(s6)", 2008, 3.5, 28],
+        [187, "compact", 21, 4, "f", "r", "toyota", "camry solara", "auto(l4)", 1999, 2.2, 27],
+        [188, "compact", 21, 4, "f", "r", "toyota", "camry solara", "manual(m5)", 1999, 2.2, 29],
+        [189, "compact", 21, 4, "f", "r", "toyota", "camry solara", "manual(m5)", 2008, 2.4, 31],
+        [190, "compact", 22, 4, "f", "r", "toyota", "camry solara", "auto(s5)", 2008, 2.4, 31],
+        [191, "compact", 18, 6, "f", "r", "toyota", "camry solara", "auto(l4)", 1999, 3, 26],
+        [192, "compact", 18, 6, "f", "r", "toyota", "camry solara", "manual(m5)", 1999, 3, 26],
+        [193, "compact", 18, 6, "f", "r", "toyota", "camry solara", "auto(s5)", 2008, 3.3, 27],
+        [194, "compact", 24, 4, "f", "r", "toyota", "corolla", "auto(l3)", 1999, 1.8, 30],
+        [195, "compact", 24, 4, "f", "r", "toyota", "corolla", "auto(l4)", 1999, 1.8, 33],
+        [196, "compact", 26, 4, "f", "r", "toyota", "corolla", "manual(m5)", 1999, 1.8, 35],
+        [197, "compact", 28, 4, "f", "r", "toyota", "corolla", "manual(m5)", 2008, 1.8, 37],
+        [198, "compact", 26, 4, "f", "r", "toyota", "corolla", "auto(l4)", 2008, 1.8, 35],
+        [199, "suv", 11, 8, "4", "r", "toyota", "land cruiser wagon 4wd", "auto(l4)", 1999, 4.7, 15],
+        [200, "suv", 13, 8, "4", "r", "toyota", "land cruiser wagon 4wd", "auto(s6)", 2008, 5.7, 18],
+        [201, "pickup", 15, 4, "4", "r", "toyota", "toyota tacoma 4wd", "manual(m5)", 1999, 2.7, 20],
+        [202, "pickup", 16, 4, "4", "r", "toyota", "toyota tacoma 4wd", "auto(l4)", 1999, 2.7, 20],
+        [203, "pickup", 17, 4, "4", "r", "toyota", "toyota tacoma 4wd", "manual(m5)", 2008, 2.7, 22],
+        [204, "pickup", 15, 6, "4", "r", "toyota", "toyota tacoma 4wd", "manual(m5)", 1999, 3.4, 17],
+        [205, "pickup", 15, 6, "4", "r", "toyota", "toyota tacoma 4wd", "auto(l4)", 1999, 3.4, 19],
+        [206, "pickup", 15, 6, "4", "r", "toyota", "toyota tacoma 4wd", "manual(m6)", 2008, 4, 18],
+        [207, "pickup", 16, 6, "4", "r", "toyota", "toyota tacoma 4wd", "auto(l5)", 2008, 4, 20],
+        [208, "compact", 21, 4, "f", "r", "volkswagen", "gti", "manual(m5)", 1999, 2, 29],
+        [209, "compact", 19, 4, "f", "r", "volkswagen", "gti", "auto(l4)", 1999, 2, 26],
+        [210, "compact", 21, 4, "f", "p", "volkswagen", "gti", "manual(m6)", 2008, 2, 29],
+        [211, "compact", 22, 4, "f", "p", "volkswagen", "gti", "auto(s6)", 2008, 2, 29],
+        [212, "compact", 17, 6, "f", "r", "volkswagen", "gti", "manual(m5)", 1999, 2.8, 24],
+        [213, "compact", 33, 4, "f", "d", "volkswagen", "jetta", "manual(m5)", 1999, 1.9, 44],
+        [214, "compact", 21, 4, "f", "r", "volkswagen", "jetta", "manual(m5)", 1999, 2, 29],
+        [215, "compact", 19, 4, "f", "r", "volkswagen", "jetta", "auto(l4)", 1999, 2, 26],
+        [216, "compact", 22, 4, "f", "p", "volkswagen", "jetta", "auto(s6)", 2008, 2, 29],
+        [217, "compact", 21, 4, "f", "p", "volkswagen", "jetta", "manual(m6)", 2008, 2, 29],
+        [218, "compact", 21, 5, "f", "r", "volkswagen", "jetta", "auto(s6)", 2008, 2.5, 29],
+        [219, "compact", 21, 5, "f", "r", "volkswagen", "jetta", "manual(m5)", 2008, 2.5, 29],
+        [220, "compact", 16, 6, "f", "r", "volkswagen", "jetta", "auto(l4)", 1999, 2.8, 23],
+        [221, "compact", 17, 6, "f", "r", "volkswagen", "jetta", "manual(m5)", 1999, 2.8, 24],
+        [222, "subcompact", 35, 4, "f", "d", "volkswagen", "new beetle", "manual(m5)", 1999, 1.9, 44],
+        [223, "subcompact", 29, 4, "f", "d", "volkswagen", "new beetle", "auto(l4)", 1999, 1.9, 41],
+        [224, "subcompact", 21, 4, "f", "r", "volkswagen", "new beetle", "manual(m5)", 1999, 2, 29],
+        [225, "subcompact", 19, 4, "f", "r", "volkswagen", "new beetle", "auto(l4)", 1999, 2, 26],
+        [226, "subcompact", 20, 5, "f", "r", "volkswagen", "new beetle", "manual(m5)", 2008, 2.5, 28],
+        [227, "subcompact", 20, 5, "f", "r", "volkswagen", "new beetle", "auto(s6)", 2008, 2.5, 29],
+        [228, "midsize", 21, 4, "f", "p", "volkswagen", "passat", "manual(m5)", 1999, 1.8, 29],
+        [229, "midsize", 18, 4, "f", "p", "volkswagen", "passat", "auto(l5)", 1999, 1.8, 29],
+        [230, "midsize", 19, 4, "f", "p", "volkswagen", "passat", "auto(s6)", 2008, 2, 28],
+        [231, "midsize", 21, 4, "f", "p", "volkswagen", "passat", "manual(m6)", 2008, 2, 29],
+        [232, "midsize", 16, 6, "f", "p", "volkswagen", "passat", "auto(l5)", 1999, 2.8, 26],
+        [233, "midsize", 18, 6, "f", "p", "volkswagen", "passat", "manual(m5)", 1999, 2.8, 26],
+        [234, "midsize", 17, 6, "f", "p", "volkswagen", "passat", "auto(s6)", 2008, 3.6, 26]
+      ],
+      "tooth": [
+        ["Id", "dose", "supp", "len"],
+        [1, 0.5, "VC", 4.2],
+        [2, 0.5, "VC", 11.5],
+        [3, 0.5, "VC", 7.3],
+        [4, 0.5, "VC", 5.8],
+        [5, 0.5, "VC", 6.4],
+        [6, 0.5, "VC", 10],
+        [7, 0.5, "VC", 11.2],
+        [8, 0.5, "VC", 11.2],
+        [9, 0.5, "VC", 5.2],
+        [10, 0.5, "VC", 7],
+        [11, 1, "VC", 16.5],
+        [12, 1, "VC", 16.5],
+        [13, 1, "VC", 15.2],
+        [14, 1, "VC", 17.3],
+        [15, 1, "VC", 22.5],
+        [16, 1, "VC", 17.3],
+        [17, 1, "VC", 13.6],
+        [18, 1, "VC", 14.5],
+        [19, 1, "VC", 18.8],
+        [20, 1, "VC", 15.5],
+        [21, 2, "VC", 23.6],
+        [22, 2, "VC", 18.5],
+        [23, 2, "VC", 33.9],
+        [24, 2, "VC", 25.5],
+        [25, 2, "VC", 26.4],
+        [26, 2, "VC", 32.5],
+        [27, 2, "VC", 26.7],
+        [28, 2, "VC", 21.5],
+        [29, 2, "VC", 23.3],
+        [30, 2, "VC", 29.5],
+        [31, 0.5, "OJ", 15.2],
+        [32, 0.5, "OJ", 21.5],
+        [33, 0.5, "OJ", 17.6],
+        [34, 0.5, "OJ", 9.7],
+        [35, 0.5, "OJ", 14.5],
+        [36, 0.5, "OJ", 10],
+        [37, 0.5, "OJ", 8.2],
+        [38, 0.5, "OJ", 9.4],
+        [39, 0.5, "OJ", 16.5],
+        [40, 0.5, "OJ", 9.7],
+        [41, 1, "OJ", 19.7],
+        [42, 1, "OJ", 23.3],
+        [43, 1, "OJ", 23.6],
+        [44, 1, "OJ", 26.4],
+        [45, 1, "OJ", 20],
+        [46, 1, "OJ", 25.2],
+        [47, 1, "OJ", 25.8],
+        [48, 1, "OJ", 21.2],
+        [49, 1, "OJ", 14.5],
+        [50, 1, "OJ", 27.3],
+        [51, 2, "OJ", 25.5],
+        [52, 2, "OJ", 26.4],
+        [53, 2, "OJ", 22.4],
+        [54, 2, "OJ", 24.5],
+        [55, 2, "OJ", 24.8],
+        [56, 2, "OJ", 30.9],
+        [57, 2, "OJ", 26.4],
+        [58, 2, "OJ", 27.3],
+        [59, 2, "OJ", 29.4],
+        [60, 2, "OJ", 23]
+      ],
+      "ds6x3x1": [
+        ["Month", "Series A", "Series B", "Series C", "Quarter"],
+        ["Jan", 10, 5, 2, "Q1"],
+        ["Feb", 11, 8, 3, "Q1"],
+        ["Mar", 13, 10, 6, "Q1"],
+        ["Apr", 4, 12, 4, "Q2"],
+        ["May", 18, 15, 8, "Q2"],
+        ["Jun", 21, 10, 6, "Q2"]
+      ],
+      "ds12x3x1": [
+        ["Month", "Series A", "Series B", "Series C", "Quarter"],
+        ["Jan", 10, 5, 2, "Q1"],
+        ["Feb", 11, 8, 3, "Q1"],
+        ["Mar", 13, 10, 6, "Q1"],
+        ["Apr", 4, 12, 4, "Q2"],
+        ["May", 18, 15, 8, "Q2"],
+        ["Jun", 21, 10, 6, "Q2"],
+        ["Jul", 14, 8, 3, "Q3"],
+        ["Aug", 16, 9, 4, "Q3"],
+        ["Sep", 19, 12, 6, "Q3"],
+        ["Oct", 8, 10, 4, "Q4"],
+        ["Nov", 12, 15, 8, "Q4"],
+        ["Dec", 15, 10, 6, "Q4"]
+      ],
+      "ds24x2x3": [
+        ["Date", "Series A", "Series B", "Series C", "Quarter"],
+        ["2019-01-01", 10, 5, 2, "Q1"],
+        ["2019-02-01", 11, 8, 3, "Q1"],
+        ["2019-03-01", 13, 10, 6, "Q1"],
+        ["2019-04-01", 4, 12, 4, "Q2"],
+        ["2019-05-01", 18, 15, 8, "Q2"],
+        ["2019-06-01", 21, 10, 6, "Q2"],
+        ["2019-07-01", 14, 8, 3, "Q3"],
+        ["2019-08-01", 16, 9, 4, "Q3"],
+        ["2019-09-01", 19, 12, 6, "Q3"],
+        ["2019-10-01", 8, 10, 4, "Q4"],
+        ["2019-11-01", 12, 15, 8, "Q4"],
+        ["2019-12-01", 15, 10, 6, "Q4"],
+        ["2020-01-01", 10, 5, 2, "Q1"],
+        ["2020-02-01", 11, 8, 3, "Q1"],
+        ["2020-03-01", 13, 10, 6, "Q1"],
+        ["2020-04-01", 4, 12, 4, "Q2"],
+        ["2020-05-01", 18, 15, 8, "Q2"],
+        ["2020-06-01", 21, 10, 6, "Q2"],
+        ["2020-07-01", 14, 8, 3, "Q3"],
+        ["2020-08-01", 16, 9, 4, "Q3"],
+        ["2020-09-01", 19, 12, 6, "Q3"],
+        ["2020-10-01", 8, 10, 4, "Q4"],
+        ["2020-11-01", 12, 15, 8, "Q4"],
+        ["2020-12-01", 15, 10, 6, "Q4"]
+      ],
+      "ds72x1x2": [
+        ["Date", "Series", "Value", "Quarter"],
+        ["2019-01-01", "Series A", 10, "Q1"],
+        ["2019-02-01", "Series A", 11, "Q1"],
+        ["2019-03-01", "Series A", 13, "Q1"],
+        ["2019-04-01", "Series A", 4, "Q2"],
+        ["2019-05-01", "Series A", 18, "Q2"],
+        ["2019-06-01", "Series A", 21, "Q2"],
+        ["2019-07-01", "Series A", 14, "Q3"],
+        ["2019-08-01", "Series A", 16, "Q3"],
+        ["2019-09-01", "Series A", 19, "Q3"],
+        ["2019-10-01", "Series A", 8, "Q4"],
+        ["2019-11-01", "Series A", 12, "Q4"],
+        ["2019-12-01", "Series A", 15, "Q4"],
+        ["2020-01-01", "Series A", 10, "Q1"],
+        ["2020-02-01", "Series A", 11, "Q1"],
+        ["2020-03-01", "Series A", 13, "Q1"],
+        ["2020-04-01", "Series A", 4, "Q2"],
+        ["2020-05-01", "Series A", 18, "Q2"],
+        ["2020-06-01", "Series A", 21, "Q2"],
+        ["2020-07-01", "Series A", 14, "Q3"],
+        ["2020-08-01", "Series A", 16, "Q3"],
+        ["2020-09-01", "Series A", 19, "Q3"],
+        ["2020-10-01", "Series A", 8, "Q4"],
+        ["2020-11-01", "Series A", 12, "Q4"],
+        ["2020-12-01", "Series A", 15, "Q4"],
+        ["2019-01-01", "Series B", 5, "Q1"],
+        ["2019-02-01", "Series B", 8, "Q1"],
+        ["2019-03-01", "Series B", 10, "Q1"],
+        ["2019-04-01", "Series B", 12, "Q2"],
+        ["2019-05-01", "Series B", 15, "Q2"],
+        ["2019-06-01", "Series B", 10, "Q2"],
+        ["2019-07-01", "Series B", 8, "Q3"],
+        ["2019-08-01", "Series B", 9, "Q3"],
+        ["2019-09-01", "Series B", 12, "Q3"],
+        ["2019-10-01", "Series B", 10, "Q4"],
+        ["2019-11-01", "Series B", 15, "Q4"],
+        ["2019-12-01", "Series B", 10, "Q4"],
+        ["2020-01-01", "Series B", 5, "Q1"],
+        ["2020-02-01", "Series B", 8, "Q1"],
+        ["2020-03-01", "Series B", 10, "Q1"],
+        ["2020-04-01", "Series B", 12, "Q2"],
+        ["2020-05-01", "Series B", 15, "Q2"],
+        ["2020-06-01", "Series B", 10, "Q2"],
+        ["2020-07-01", "Series B", 8, "Q3"],
+        ["2020-08-01", "Series B", 9, "Q3"],
+        ["2020-09-01", "Series B", 12, "Q3"],
+        ["2020-10-01", "Series B", 10, "Q4"],
+        ["2020-11-01", "Series B", 15, "Q4"],
+        ["2020-12-01", "Series B", 10, "Q4"],
+        ["2019-01-01", "Series C", 2, "Q1"],
+        ["2019-02-01", "Series C", 3, "Q1"],
+        ["2019-03-01", "Series C", 6, "Q1"],
+        ["2019-04-01", "Series C", 4, "Q2"],
+        ["2019-05-01", "Series C", 8, "Q2"],
+        ["2019-06-01", "Series C", 6, "Q2"],
+        ["2019-07-01", "Series C", 3, "Q3"],
+        ["2019-08-01", "Series C", 4, "Q3"],
+        ["2019-09-01", "Series C", 6, "Q3"],
+        ["2019-10-01", "Series C", 4, "Q4"],
+        ["2019-11-01", "Series C", 8, "Q4"],
+        ["2019-12-01", "Series C", 6, "Q4"],
+        ["2020-01-01", "Series C", 2, "Q1"],
+        ["2020-02-01", "Series C", 3, "Q1"],
+        ["2020-03-01", "Series C", 6, "Q1"],
+        ["2020-04-01", "Series C", 4, "Q2"],
+        ["2020-05-01", "Series C", 8, "Q2"],
+        ["2020-06-01", "Series C", 6, "Q2"],
+        ["2020-07-01", "Series C", 3, "Q3"],
+        ["2020-08-01", "Series C", 4, "Q3"],
+        ["2020-09-01", "Series C", 6, "Q3"],
+        ["2020-10-01", "Series C", 4, "Q4"],
+        ["2020-11-01", "Series C", 8, "Q4"],
+        ["2020-12-01", "Series C", 6, "Q4"]
+      ],
+      "Questions": [
+        {
+          "Question": "Line graph of Series A and no legend",
+          "Type": "Line",
+          "Header": ["Date", "Series A", "Series B", "Series C", "Quarter"],
+          "Data": "ds24x2x3",
+          "Answer": {
+            "graphType": "Line",
+            "xAxis": ["Series B", "Series C"],
+            "graphOrientation": "horizontal",
+            "showLegend": false,
+            "isGraphTime": true
+          }
+        },
+        {
+          "Question": "Line graph of Value versus Date colored by Series.",
+          "Type": "Line",
+          "Header": ["Date", "Series", "Value", "Quarter"],
+          "Data": "ds72x1x2",
+          "Answer": {
+            "graphType": "Line",
+            "colorBy": "Series",
+            "xAxis": ["Date"],
+            "yAxis": ["Value"],
+            "xAxisTime": true,
+          }
+        },
+        {
+          "Question": "Line graph of hwy and no legend",
+          "Type": "Line",
+          "Header": ["Id", "class", "cty", "cyl", "drv", "fl", "manufacturer", "model", "trans", "year", "displ", "hwy"],
+          "Data": "mpg",
+          "Answer": {
+            "graphType": "Line",
+            "xAxis": ["hwy"],
+            "graphOrientation": "vertical",
+            "showLegend": false
+          }
+        },
+        {
+          "Question": "Line graph of hwy and cty grouped by class. Set the graph orientation to horizontal.",
+          "Type": "Line",
+          "Header": ["Id", "class", "cty", "cyl", "drv", "fl", "manufacturer", "model", "trans", "year", "displ", "hwy"],
+          "Data": "mpg",
+          "Answer": {
+            "graphType": "Line",
+            "xAxis": ["hwy", "cty"],
+            "groupingFactors": ["class"],
+            "graphOrientation": "horizontal"
+          }
+        },
+        {
+          "Question": "Line graph of hwy and cty grouped by class show error bars as area using a spline. Set the title to Line Graph of hwy and cty grouped by class.",
+          "Type": "Line",
+          "Header": ["Id", "class", "cty", "cyl", "drv", "fl", "manufacturer", "model", "trans", "year", "displ", "hwy"],
+          "Data": "mpg",
+          "Answer": {
+            "graphType": "Line",
+            "title": "Line Graph of hwy and cty grouped by class",
+            "xAxis": ["hwy", "cty"],
+            "groupingFactors": ["class"],
+            "lineErrorType": "area",
+            "lineType": "spline",
+            "graphOrientation": "vertical"
+          }
+        }
+      ]
+    }
+
+    var insertContainer = function (id, title, width, height) {
+      if (id) {
+        var cnt = document.createElement("div");
+        cnt.className = "container";
+        var tit = document.createElement("div");
+        tit.className = "title";
+        tit.innerHTML = title;
+        var plt = document.createElement("div");
+        plt.className = "plot";
+        var div = document.createElement("div");
+        var cnv = document.createElement("canvas");
+        cnv.id = id;
+        cnv.width = width || 500;
+        cnv.height = height || 500;
+        cnv.dataset.aspectRatio = "1:1";
+        cnv.dataset.responsive = "true";
+        cnt.appendChild(tit);
+        cnt.appendChild(plt);
+        plt.appendChild(div);
+        div.appendChild(cnv);
+        document.querySelector(".content").appendChild(cnt);
+      }
+    };
+
+    var getData = function (data) {
+      return JSON.parse(JSON.stringify(json[data]));
+    }
+
+    var insertVis = function (id, title, width, height, data, cnf) {
+      insertContainer(id, title, width, height);
+      new CanvasXpress(id, getData(data), cnf);
+    }
+
+    for (var ii = 0; ii < json.Questions.length; ii++) {
+      if (ii != 53) {
+        //continue;
+      }
+      var q = json.Questions[ii];
+      var d = q.Data;
+      var t = q.Question;
+      var j = q.Answer;
+      var c = "Q" + (ii + 1);
+      if (Object.keys(j).length == 0) {
+        continue;
+      }
+      insertVis(c, t, 500, 500, d, j);
+    }
+  </script>
+</body>
+
+</html>
