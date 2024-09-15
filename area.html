@@ -7,7 +7,111 @@
   <title>CanvasXpress LLM Questions</title>
   <!-- CanvasXpress -->
   <link rel="stylesheet" href="https://canvasxpress.org/dist/canvasXpress.css" type="text/css" />
+  <!--
   <script type="text/javascript" src="https://canvasxpress.org/dist/canvasXpress.min.js"></script>
+  -->
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.init.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.process.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.start.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.dataset.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.aesthetics.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.scale.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.geometry.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.statistics.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.facets.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.coordinates.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.theme.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.render.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.UI.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.dom.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.svg.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.interface.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.save.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.config.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.date.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.text.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.time.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.color.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.attributes.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.algorithm.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.primitives.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.utilsGeneral.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.utilsPlot.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.utilsConfig.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.utils3d.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.utilsApi.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.utilsDimension.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.utils.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.legend.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.marker.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.filter.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.cluster.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.sort.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.numeric.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.jLouvain.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.cola.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.crypt.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.math.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.sankeyUtils.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.circlePackUtils.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.treeUtils.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.networkUtils.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.complex.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.fft.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.contour.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.density.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.hist.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.loess.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.quantreg.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.lapack.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.layout.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.viewport.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.menu.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.links.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.tooltip.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.tooltipMouse.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.tooltipDiv.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.toolbar.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.code.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.bin.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.customizer.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.datafilter.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.datatable.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.resizer.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.motion.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.drag.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.key.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.select.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.dendrogram.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.canvas.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.cleanup.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.events.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.animation.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.example.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.data.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.dataUtils.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.random.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.fx.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.remote.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.graph.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.axis.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.cxplot.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.pie.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.venn.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.correlation.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.scatter2d.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.scatter3d.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.onedplot.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.network.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.genome.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.circular.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.map.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.orthographic.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.images.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.icons.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.doc.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.react.js"></script>
+  <script type="text/javascript" src="http://localhost:8000/build/js/canvasXpress.IO.js"></script>
 
   <style>
     div.content {
@@ -487,7 +591,7 @@
       ],
       "Questions": [
         {
-          "Question": "Area graph of 'Series A' with no legend rotating the labels by 90 degrees oriented vertically. Set the graph title to 'Area graph with one series'",
+          "Question": "Create an area graph of 'Series A' with no legend rotating the labels by 90 degrees oriented vertically. Set the graph title to 'Area graph with one series'",
           "Type": "Area",
           "Header": ["Month", "Series A", "Series B", "Series C", "Quarter"],
           "Data": "ds6x3x1",
@@ -501,7 +605,7 @@
           }
         },
         {
-          "Question": "Area graph of 'Series A' with vertical orientation, labels rotated 90 degrees, and with a sample title of 'Month' and a primary axis title of 'Value'. Hide the legend and style the graph like a GGPlot",
+          "Question": "Create an area graph of 'Series A' with vertical orientation, labels rotated 90 degrees, and with a sample title of 'Month' and a primary axis title of 'Value'. Hide the legend and style the graph like a GGPlot",
           "Type": "Area",
           "Header": ["Month", "Series A", "Series B", "Series C", "Quarter"],
           "Data": "ds6x3x1",
@@ -518,7 +622,7 @@
           }
         },
         {
-          "Question": "Area graph in a vertical orientation using splines, medium transparency, labels rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Set the graph title in bigger font to 'Area graph with three overlapping data series' and the subtitle to 'random data'. Use a GGPlot color scheme",
+          "Question": "Create an area graph in a vertical orientation using splines, medium transparency, labels rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Set the graph title in bigger font to 'Area graph with three overlapping data series' and the subtitle to 'random data'. Use a GGPlot color scheme",
           "Type": "Area",
           "Header": ["Month", "Series A", "Series B", "Series C", "Quarter"],
           "Data": "ds6x3x1",
@@ -538,7 +642,7 @@
           }
         },
         {
-          "Question": "Area graph with all the data stacked in a vertical orientation using splines, labels rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Use a Pastel color scheme",
+          "Question": "Create an area graph with all the data stacked in a vertical orientation using splines, labels rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Use a Pastel color scheme",
           "Type": "Area",
           "Header": ["Month", "Series A", "Series B", "Series C", "Quarter"],
           "Data": "ds6x3x1",
@@ -555,7 +659,7 @@
           }
         },
         {
-          "Question": "Area graph with all the data 100% stacked in a vertical orientation using splines, labels rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Use the BMS color scheme",
+          "Question": "Create an area graph with all the data 100% stacked in a vertical orientation using splines, labels rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Use the BMS color scheme",
           "Type": "Area",
           "Header": ["Month", "Series A", "Series B", "Series C", "Quarter"],
           "Data": "ds6x3x1",
@@ -568,11 +672,11 @@
             "smpTextRotate": 90,
             "smpTitle": "Month",
             "xAxisTitle": "Value",
-            "colorScheme": "BMS",
+            "colorScheme": "BMS"
           }
         },
         {
-          "Question": "Area graph with in a vertical orientation using splines, labels rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Exclude 'Series C'",
+          "Question": "Create an area graph with in a vertical orientation using splines, labels rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Exclude 'Series C'",
           "Type": "Area",
           "Header": ["Month", "Series A", "Series B", "Series C", "Quarter"],
           "Data": "ds6x3x1",
@@ -588,7 +692,7 @@
           }
         },
         {
-          "Question": "Area graph with in a vertical orientation using splines, labels slightly smaller, rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Include only 'Series A'",
+          "Question": "Create an area graph with in a vertical orientation using splines, labels slightly smaller, rotated 90 degrees, and a sample title of 'Month' and a primary axis title of 'Value'. Include only 'Series A'",
           "Type": "Area",
           "Header": ["Month", "Series A", "Series B", "Series C", "Quarter"],
           "Data": "ds6x3x1",
@@ -605,7 +709,7 @@
           }
         },
         {
-          "Question": "Area graph of hwy with title Simple Area Graph and no legend. Style the graph like a GGPlot",
+          "Question": "Create a vertical area graph of hwy with title Simple Area Graph and no legend. Style the graph like a GGPlot",
           "Type": "Area",
           "Header": ["Id", "class", "cty", "cyl", "drv", "fl", "manufacturer", "model", "trans", "year", "displ", "hwy"],
           "Data": "mpg",
@@ -619,7 +723,7 @@
           }
         },
         {
-          "Question": "Overlapping area graph of cty and hwy",
+          "Question": "Create an overlapping area graph of cty and hwy",
           "Type": "Area",
           "Header": ["Id", "class", "cty", "cyl", "drv", "fl", "manufacturer", "model", "trans", "year", "displ", "hwy"],
           "Data": "mpg",
@@ -630,7 +734,7 @@
           }
         },
         {
-          "Question": "Stacked area graph of hwy and cty",
+          "Question": "Create a stacked area graph of hwy and cty",
           "Type": "Area",
           "Header": ["Id", "class", "cty", "cyl", "drv", "fl", "manufacturer", "model", "trans", "year", "displ", "hwy"],
           "Data": "mpg",
@@ -642,7 +746,7 @@
           }
         },
         {
-          "Question": "Percentage stacked area graph of hwy and cty. Make the text for the axis smaller and the text for the legend bigger",
+          "Question": "Create a percentage stacked area graph of hwy and cty. Make the text for the axis smaller and the text for the legend bigger",
           "Type": "Area",
           "Header": ["Id", "class", "cty", "cyl", "drv", "fl", "manufacturer", "model", "trans", "year", "displ", "hwy"],
           "Data": "mpg",
@@ -703,6 +807,10 @@
       if (Object.keys(j).length == 0) {
         continue;
       }
+      j.llmPrompt = t;
+      j.llmBehaviour = 'update';
+      j.disableChat = false;
+      j.llmUseDev = true;
       insertVis(c, t, 500, 500, d, j);
     }
   </script>
