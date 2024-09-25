@@ -45,6 +45,10 @@ var loadQuestions = function () {
     if (Object.keys(j).length == 0) {
       continue;
     }
+    j.isChat = true;
+    j.llmPrompt = t;
+    j.llmBehaviour = 'update';
+    j.llmUseDev = true;
     insertVis(c, t, 500, 500, d, j);
   }
 }
