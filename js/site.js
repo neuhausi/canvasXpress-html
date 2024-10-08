@@ -34,7 +34,7 @@ var insertVis = function (id, title, width, height, data, cnf) {
 var loadQuestions = function () {
 
   for (var ii = 0; ii < questions.length; ii++) {
-    if (ii != 53) {
+    if (ii != 2) {
       //continue;
     }
     var q = questions[ii];
@@ -48,7 +48,7 @@ var loadQuestions = function () {
     j.isChat = true;
     j.llmPrompt = t;
     j.llmBehaviour = 'update';
-    j.llmUseDev = true;
+    //j.llmUseDev = true;
     insertVis(c, t, 500, 500, d, j);
   }
 }
